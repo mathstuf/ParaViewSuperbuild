@@ -222,6 +222,7 @@ else()
   include(szip)
   include(visitbridge)
   include(zlib)
+  include(netcdf4python)
   if(CMAKE_Fortran_COMPILER)
     # both of these packages require a Fortran compiler to build so we
     # only present them to the user if we have one.

@@ -96,6 +96,14 @@ if (numpy_ENABLED)
           COMPONENT ParaView)
 endif()
 
+if (netcdf4python_ENABLED)
+  install(DIRECTORY "${install_location}/lib/site-packages"
+          DESTINATION "bin/Lib/site-packages"
+          USE_SOURCE_PERMISSIONS
+          COMPONENT ParaView
+          FILES_MATCHING PATTERN "net*")
+endif()
+
 if (matplotlib_ENABLED)
   install(DIRECTORY "${install_location}/lib/site-packages/matplotlib"
           DESTINATION "bin/Lib/site-packages"
@@ -120,7 +128,7 @@ endif()
 if (qt_ENABLED AND NOT USE_SYSTEM_qt)
   install(DIRECTORY
     # install all qt plugins (including sqllite).
-    # FIXME: we can reconfigure Qt to be built with inbuilt sqllite support to
+    # FIXME: we can reconfigure Qt to be built with inbuilt sqdllite support to
     # avoid the need for plugins.
     "${install_location}/plugins/"
     DESTINATION "bin"

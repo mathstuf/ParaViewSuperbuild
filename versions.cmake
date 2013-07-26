@@ -177,3 +177,7 @@ add_revision(portfwd
 add_revision(lapack
   URL "http://paraview.org/files/dependencies/lapack-3.4.2.tgz"
   URL_MD5 61bf1a8a4469d4bdb7604f5897179478)
+
+add_revision(netcdf4python
+  URL "http://netcdf4-python.googlecode.com/files/netCDF4-1.0.4.tar.gz"
+  URL_MD5 4467eba7bd9c6dae781b9305b558864f)

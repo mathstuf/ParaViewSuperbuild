@@ -30,11 +30,37 @@ install(CODE "
 if (numpy_ENABLED)
   # install numpy module into the application bundle.
   install(CODE "
-                # install numpy
-                file(GLOB numpy-root \"${install_location}/lib/python*/site-packages/numpy\")
-                file(INSTALL DESTINATION \"\${PV_PYTHON_LIB_INSTALL_PREFIX}\"
-                     USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
-                     \"\${numpy-root}\")
+              # install numpy
+              file(GLOB numpy-root \"${install_location}/lib/python*/site-packages/numpy\")
+              file(INSTALL DESTINATION \"\${PV_PYTHON_LIB_INSTALL_PREFIX}\"
+                   USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
+                   \"\${numpy-root}\")
+             "
+        COMPONENT superbuild)
+endif()
+
+#-----------------------------------------------------------------------------
+if (netcdf4python_ENABLED)
+  # install numpy module into the application bundle.
+  install(CODE "
+                # install netcdf4python
+                file(GLOB netcdf4python-files \"${install_location}/lib/python*/site-packages/net*.py\")
+                foreach(netcdf4python-file \${netcdf4python-files})
+                    file(INSTALL DESTINATION \"\${PV_PYTHON_LIB_INSTALL_PREFIX}\"
+                        USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
+                        \"\${netcdf4python-file}\")
+                endforeach()
+               "
+          COMPONENT superbuild)
+  
+        install(CODE "
+                # install netcdf4python
+                file(GLOB netcdf4python-files \"${install_location}/lib/python*/site-packages/netCDF*.so\")
+                foreach(netcdf4python-file \${netcdf4python-files})
+                    file(INSTALL DESTINATION \"\${PV_PYTHON_LIB_INSTALL_PREFIX}\"
+                        USE_SOURCE_PERMISSIONS TYPE DIRECTORY FILES
+                        \"\${netcdf4python-file}\")
+                endforeach()
                "
           COMPONENT superbuild)
 endif()
