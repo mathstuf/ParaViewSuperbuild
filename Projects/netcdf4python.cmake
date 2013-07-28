@@ -1,5 +1,7 @@
 set (_install_location "<INSTALL_DIR>")
 if (WIN32)
+  # matplotlib build has issues with paths containing "C:". So we set the prefix as a
+  # relative path.
   set (_install_location "../../../install")
 endif()
 
