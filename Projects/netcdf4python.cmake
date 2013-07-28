@@ -19,13 +19,21 @@ add_external_project(netcdf4python
   DEPENDS python numpy hdf5 zlib netcdf4
   CONFIGURE_COMMAND ""  
   BUILD_IN_SOURCE 1
+  PATCH_COMMAND
+      "${CMAKE_COMMAND}"
+          "-DPATCHES_DIR:PATH=${SuperBuild_PROJECTS_DIR}/patches/"
+          "-DSOURCE_DIR:PATH=<SOURCE_DIR>"
+          "-DINSTALL_DIR:PATH=<INSTALL_DIR>"
+          "-DCMAKE_COMMAND:PATH=${CMAKE_COMMAND}"
+          -P "${SuperBuild_PROJECTS_DIR}/netcdf4python.patch.cmake"
   BUILD_COMMAND ""    
   INSTALL_COMMAND
- 	"${SAFE_CMAKE_COMMAND}" -DPYTHON_EXECUTABLE:PATH=${pv_python_executable}
-                             	-DNETCDF4PYTHON_SOURCE_DIR:PATH=<SOURCE_DIR>
-                             	-DNETCDF4PYTHON_INSTALL_DIR:PATH=<INSTALL_DIR>
-                             	-DNUMPY_INSTALL_DIR:PATH=<INSTALL_DIR>
-                             	-DHDF5_DIR:PATH=<INSTALL_DIR>
-                            	-DNETCDF4_DIR:PATH=<INSTALL_DIR>
-                             	-P ${SuperBuild_PROJECTS_DIR}/netcdf4python.build.cmake
+ 	"${SAFE_CMAKE_COMMAND}" 
+ 		-DPYTHON_EXECUTABLE:PATH=${pv_python_executable}
+		-DNETCDF4PYTHON_SOURCE_DIR:PATH=<SOURCE_DIR>
+		-DNETCDF4PYTHON_INSTALL_DIR:PATH=<INSTALL_DIR>
+		-DNUMPY_INSTALL_DIR:PATH=<INSTALL_DIR>
+		-DHDF5_DIR:PATH=<INSTALL_DIR>
+		-DNETCDF4_DIR:PATH=<INSTALL_DIR>
+		-P ${SuperBuild_PROJECTS_DIR}/netcdf4python.build.cmake
 )
