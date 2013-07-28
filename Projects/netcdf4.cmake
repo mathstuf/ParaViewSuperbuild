@@ -6,6 +6,7 @@ add_external_project(netcdf4
       "-DPATCHES_DIR:PATH=${SuperBuild_PROJECTS_DIR}/patches/"
       "-DSOURCE_DIR:PATH=<SOURCE_DIR>"
       "-DINSTALL_DIR:PATH=<INSTALL_DIR>"
+      "-DCMAKE_COMMAND:PATH=${CMAKE_COMMAND}"
       -P "${SuperBuild_PROJECTS_DIR}/netcdf4.patch.cmake"
   CMAKE_ARGS
     -DENABLE_NETCDF_4:BOOL=TRUE
