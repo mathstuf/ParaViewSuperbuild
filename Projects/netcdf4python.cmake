@@ -15,6 +15,7 @@ if(${CMAKE_GENERATOR} STREQUAL "Ninja")
   set(SAFE_CMAKE_COMMAND "${CMAKE_COMMAND}")
 endif()
 
+message("Hi aashish....${NETCDF4PYTHON_INSTALL_DIR}...")
 add_external_project(netcdf4python
   DEPENDS python numpy hdf5 zlib netcdf4
   CONFIGURE_COMMAND ""  
@@ -26,14 +27,22 @@ add_external_project(netcdf4python
           "-DINSTALL_DIR:PATH=<INSTALL_DIR>"
           "-DCMAKE_COMMAND:PATH=${CMAKE_COMMAND}"
           -P "${SuperBuild_PROJECTS_DIR}/netcdf4python.patch.cmake"
-  BUILD_COMMAND ""    
+  BUILD_COMMAND 
+  	"${SAFE_CMAKE_COMMAND}" 
+   		-DPYTHON_EXECUTABLE:PATH=${pv_python_executable}
+  		-DNETCDF4PYTHON_SOURCE_DIR:PATH=<SOURCE_DIR>
+  		-DNETCDF4PYTHON_INSTALL_DIR:PATH=<INSTALL_DIR>
+  		-DNUMPY_INSTALL_DIR:PATH=<INSTALL_DIR>
+  		-DHDF5_DIR:PATH=<INSTALL_DIR>
+  		-DNETCDF4_DIR:PATH=<INSTALL_DIR>
+		-P ${SuperBuild_PROJECTS_DIR}/netcdf4python.build.cmake
   INSTALL_COMMAND
  	"${SAFE_CMAKE_COMMAND}" 
  		-DPYTHON_EXECUTABLE:PATH=${pv_python_executable}
 		-DNETCDF4PYTHON_SOURCE_DIR:PATH=<SOURCE_DIR>
-		-DNETCDF4PYTHON_INSTALL_DIR:PATH=<INSTALL_DIR>
+		-DNETCDF4PYTHON_INSTALL_DIR:PATH=${_install_location}
 		-DNUMPY_INSTALL_DIR:PATH=<INSTALL_DIR>
 		-DHDF5_DIR:PATH=<INSTALL_DIR>
 		-DNETCDF4_DIR:PATH=<INSTALL_DIR>
-		-P ${SuperBuild_PROJECTS_DIR}/netcdf4python.build.cmake
+		-P ${SuperBuild_PROJECTS_DIR}/netcdf4python.install.cmake
 )
