@@ -17,6 +17,12 @@ if (paraviewsdk_ENABLED)
   set (PARAVIEW_INSTALL_DEVELOPMENT_FILES TRUE)
 endif()
 
+if (ENABLE_numpy AND NOT BUILD_SHARED_LIBS)
+  list(APPEND extra_cmake_args
+    -DPARAVIEW_USE_STATIC_NUMPY:BOOL=ON
+    -DSTATIC_NUMPY_LIBRARY:PATH=<INSTALL_DIR>/lib/libnumpy.a)
+endif ()
+
 add_external_project(paraview
   DEPENDS_OPTIONAL
     boost cosmotools ffmpeg hdf5 libxml3 manta matplotlib mpi numpy png python qt visitbridge zlib silo cgns
