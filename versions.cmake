@@ -60,15 +60,9 @@ add_revision(qt
   URL "http://paraview.org/files/dependencies/qt-everywhere-opensource-src-4.8.6.tar.gz"
   URL_MD5 2edbe4d6c2eff33ef91732602f3518eb)
 
-if (WIN32 OR (CROSS_BUILD_STAGE STREQUAL "CROSS"))
-  add_revision(python
-    URL "http://www.paraview.org/files/dependencies/Python-2.7.3.tgz"
-    URL_MD5 "2cf641732ac23b18d139be077bd906cd")
-else()
-  add_revision(python
-    URL "http://paraview.org/files/dependencies/Python-2.7.2.tgz"
-    URL_MD5 "0ddfe265f1b3d0a8c2459f5bf66894c7")
-endif()
+add_revision(python
+  GIT_REPOSITORY "https://github.com/mathstuf/cpython"
+  GIT_TAG "cmake/2.7.3")
 
 add_revision(numpy
   URL "http://paraview.org/files/dependencies/numpy-1.8.1+cmake+static.tar.bz2"
