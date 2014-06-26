@@ -16,6 +16,8 @@ set (SuperBuild_BINARY_DIR ${ParaViewSuperBuild_BINARY_DIR})
 # anything else can use it that needs it.
 set (ep_list_separator "-+-")
 
+option(BUILD_SHARED_LIBS "Build shared libraries" ON)
+
 set (platform)
 if (APPLE)
   set (platform "apple")

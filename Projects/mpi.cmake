@@ -1,3 +1,7 @@
+if (NOT BUILD_SHARED_LIBS)
+  return()
+endif ()
+
 add_external_project_or_use_system(mpi
   CONFIGURE_COMMAND <SOURCE_DIR>/configure
                     --prefix=<INSTALL_DIR>
