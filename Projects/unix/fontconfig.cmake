@@ -1,3 +1,11 @@
+if (BUILD_SHARED_LIBS)
+  set(shared yes)
+  set(static no)
+else ()
+  set(shared no)
+  set(static yes)
+endif ()
+
 add_external_project(
   fontconfig
   DEPENDS freetype libxml2
@@ -6,7 +14,8 @@ add_external_project(
                     --prefix=<INSTALL_DIR>
                     --disable-docs
                     --enable-libxml2
-                    --enable-static=no
+                    --enable-shared=${shared}
+                    --enable-static=${static}
                     --with-freetype-config=<INSTALL_DIR>/bin/freetype-config
   PROCESS_ENVIRONMENT
                     LIBXML2_CFLAGS -I<INSTALL_DIR>/include/libxml2
