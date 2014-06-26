@@ -65,8 +65,8 @@ add_revision(python
   GIT_TAG "cmake/2.7.3")
 
 add_revision(numpy
-  URL "http://paraview.org/files/dependencies/numpy-1.6.2.tar.gz"
-  URL_MD5 95ed6c9dcc94af1fc1642ea2a33c1bba)
+  GIT_REPOSITORY "https://github.com/mathstuf/numpy"
+  GIT_TAG "cmake/1.6.2")
 
 add_revision(matplotlib
   URL "http://paraview.org/files/dependencies/matplotlib-1.1.1_notests.tar.gz"

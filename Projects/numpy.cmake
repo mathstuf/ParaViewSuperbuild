@@ -5,11 +5,22 @@ if (WIN32)
   set (_install_location "../../../install")
 endif()
 
-add_external_project(numpy
-  DEPENDS python
-  CONFIGURE_COMMAND ""
-  INSTALL_COMMAND ""
-  BUILD_IN_SOURCE 1
-  BUILD_COMMAND
-    ${pv_python_executable} setup.py install --prefix=${_install_location}
-)
+if (BUILD_SHARED_LIBS)
+  add_external_project(numpy
+    DEPENDS python
+    CONFIGURE_COMMAND ""
+    INSTALL_COMMAND ""
+    BUILD_IN_SOURCE 1
+    BUILD_COMMAND
+      ${pv_python_executable} setup.py install --prefix=${_install_location}
+  )
+else ()
+  if (USE_SYSTEM_python)
+    message(FATAL_ERROR "Static builds with NumPy require a static Python; use the superbuild's Python")
+  endif ()
+  add_external_project(numpy
+    DEPENDS python
+    CMAKE_ARGS
+      -DPYTHON_EXECUTABLE:FILEPATH=${pv_python_executable}
+      -DPYTHON_INCLUDE_DIR:PATH=<INSTALL_DIR>/include/python2.7)
+endif ()
