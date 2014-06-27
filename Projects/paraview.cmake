@@ -20,6 +20,7 @@ endif()
 if (ENABLE_numpy AND NOT BUILD_SHARED_LIBS)
   list(APPEND extra_cmake_args
     -DPARAVIEW_USE_STATIC_NUMPY:BOOL=ON
+    -DPARAVIEW_FREEZE_PYTHON:BOOL=ON
     -DSTATIC_NUMPY_LIBRARY:PATH=<INSTALL_DIR>/lib/libnumpy.a)
 endif ()
 
