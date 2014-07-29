@@ -127,36 +127,36 @@ else()
   endif()
 endif()
 
-add_revision(paraview
-  GIT_REPOSITORY https://github.com/mathstuf/ParaView
-  GIT_TAG "static-numpy")
+# ----------------------------------------------------------------------------
+# You choose to download ParaView source form GIT or other URL/FILE tarball
+option(ParaView_FROM_GIT "If enabled then the repository is fetched from git" ON)
 
-## ----------------------------------------------------------------------------
-## You choose to download ParaView source form GIT or other URL/FILE tarball
-#option(ParaView_FROM_GIT "If enabled then the repository is fetched from git" ON)
-#
-#if (ParaView_FROM_GIT)
-#  # Download PV from GIT
-#  add_revision(paraview
-#    GIT_REPOSITORY git://paraview.org/ParaView.git
-#    GIT_TAG "master")
-#else()
-#  # Variables to hold the URL and MD5 (optional)
-#  set (ParaView_URL "http://www.paraview.org/files/v4.1/ParaView-v4.1.0-source.tar.gz" CACHE
-#    STRING "Specify the url for ParaView tarball")
-#  set (ParaView_URL_MD5 "1bcdc7abfccee8f0a59db8ae916bfac2" CACHE STRING "MD5 of the ParaView tarball")
-#
-#  # Get the length of the URL specified.
-#  if("${ParaView_URL}" STREQUAL "")
-#    # No URL specified raise error.
-#    message (FATAL_ERROR "ParaView_URL should have a valid URL or FilePath to a ParaView tarball")
-#  else()
-#    # Download PV from source specified in URL
-#    add_revision(paraview
-#      URL ${ParaView_URL}
-#      URL_MD5 ${ParaView_URL_MD5})
-#  endif()
-#endif()
+if (ParaView_FROM_GIT)
+  # Download PV from GIT
+  add_revision(paraview
+    GIT_REPOSITORY git://paraview.org/ParaView.git
+    GIT_TAG "master")
+else()
+  if (NOT BUILD_SHARED_LIBS AND ENABLE_numpy)
+    message(FATAL_ERROR "Static builds with NumPy require ParaView from git")
+  endif ()
+
+  # Variables to hold the URL and MD5 (optional)
+  set (ParaView_URL "http://www.paraview.org/files/v4.1/ParaView-v4.1.0-source.tar.gz" CACHE
+    STRING "Specify the url for ParaView tarball")
+  set (ParaView_URL_MD5 "1bcdc7abfccee8f0a59db8ae916bfac2" CACHE STRING "MD5 of the ParaView tarball")
+
+  # Get the length of the URL specified.
+  if("${ParaView_URL}" STREQUAL "")
+    # No URL specified raise error.
+    message (FATAL_ERROR "ParaView_URL should have a valid URL or FilePath to a ParaView tarball")
+  else()
+    # Download PV from source specified in URL
+    add_revision(paraview
+      URL ${ParaView_URL}
+      URL_MD5 ${ParaView_URL_MD5})
+  endif()
+endif()
 
 add_revision(qhull
     GIT_REPOSITORY git://github.com/gzagaris/gxzagas-qhull.git
