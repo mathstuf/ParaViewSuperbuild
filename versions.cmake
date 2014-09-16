@@ -61,12 +61,12 @@ add_revision(qt
   URL_MD5 2edbe4d6c2eff33ef91732602f3518eb)
 
 add_revision(python
-  GIT_REPOSITORY "https://github.com/mathstuf/cpython"
-  GIT_TAG "cmake/2.7.3")
+  URL "http://www.paraview.org/files/dependencies/python-2.7.3+cmake+static.tar.bz2"
+  URL_MD5 035b4c7e112fbf79b1089782b6b985aa)
 
 add_revision(numpy
-  GIT_REPOSITORY "https://github.com/mathstuf/numpy"
-  GIT_TAG "cmake/1.6.2")
+  URL "http://www.paraview.org/files/dependencies/numpy-1.6.2+cmake+static.tar.bz2"
+  URL_MD5 074662a8a38448ef228056d20b733934)
 
 add_revision(matplotlib
   URL "http://paraview.org/files/dependencies/matplotlib-1.1.1_notests.tar.gz"
