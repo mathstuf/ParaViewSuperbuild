@@ -101,7 +101,7 @@ function (PVExternalProject_Add name)
     # be used, but then too we want to environment to be setup correctly. So we
     # obtain the default build command.
     _ep_get_build_command(pv-${name} BUILD build_cmd)
-    if("${build_cmd}" MATCHES "^\\$\\(MAKE\\)")
+    if(build_cmd MATCHES "^\\$\\(MAKE\\)")
       # GNU make recognizes the string "$(MAKE)" as recursive make, so
       # ensure that it appears directly in the makefile.
       if (CROSS_BUILD_STAGE STREQUAL "HOST")
@@ -173,8 +173,17 @@ function (PVExternalProject_Add name)
   endif()
 
   if (has_build_command)
-    get_target_property(step_command pv-${name} _EP_BUILD_COMMAND)
+    _ep_get_build_command(pv-${name} BUILD step_command)
     _ep_replace_location_tags(${name} step_command)
+    get_property(has_cmake_generator TARGET pv-${name}
+      PROPERTY _EP_CMAKE_GENERATOR SET)
+    if (has_cmake_generator)
+      get_property(cmake_generator TARGET pv-${name}
+        PROPERTY _EP_CMAKE_GENERATOR)
+      if (cmake_generator STREQUAL SUBPROJECT_GENERATOR AND SUBPROJECT_BUILD_ARGS)
+        list(APPEND step_command -- ${SUBPROJECT_BUILD_ARGS})
+      endif ()
+    endif ()
     configure_file(${SuperBuild_CMAKE_DIR}/pep_configure.cmake.in
       ${CMAKE_CURRENT_BINARY_DIR}/pv-${name}-build.cmake
       @ONLY)
